@@ -14,16 +14,16 @@ User Query
 [pgvector Cache Lookup]  ← cosine similarity > 0.75 → คืน cache
     │ cache miss
     ▼
-[DuckDuckGo Search]  → 10 URLs
+[DuckDuckGo Search]  → 10 URLs 🦖 ตอนนี้ลองแค่ 1 ยังนาน
     │
     ▼
 [Concurrent Scraper]  ← httpx + BeautifulSoup
     │
     ▼
-[LLM Summarizer]  ← Claude / GPT-4 (concurrent, semaphore=5)
+[LLM Summarizer]  ← Claude / GPT-4 (concurrent, semaphore=5) 🦖 ตอนนี้ใช้ ollama 3.2
     │
     ▼
-[Store to pgvector]  ← embed content + store cache
+[Store to pgvector]  ← embed content + store cache 🦖 ตอนนี้ใช้ bge-m3 
     │
     ▼
 Results (10 URLs + summaries)
@@ -31,22 +31,22 @@ Results (10 URLs + summaries)
 
 ## การติดตั้ง
 
-### 1. เริ่ม PostgreSQL ด้วย Docker
+### 1. เริ่ม PostgreSQL ด้วย Docker => 🦖 ใช้ brew แทน
 ```bash
 docker compose up -d
 ```
 
-### 2. ติดตั้ง Python packages
+### 2. ติดตั้ง Python packages >> 🦖 ใช้ python 3.12
 ```bash
-python -m venv venv
+python -m venv venv  >> 🦖 ใช้ python3.12 -m venv venv
 source venv/bin/activate        # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 3. ตั้งค่า environment
+### 3. 🦖 ตั้งค่า environment
 ```bash
 cp .env.example .env
-# แก้ไข .env ใส่ API keys
+# แก้ไข .env ใส่ API keys 🦖 แก้แค่พวก POSTGRES_USER/POSTGRES_PASSWORD
 ```
 
 ค่าที่ต้องใส่:
@@ -64,6 +64,8 @@ cp .env.example .env
 python cli.py "machine learning tutorial"
 python cli.py "วิธีทำ pad thai"
 ```
+
+🦖 ลองมาถึงตรงนี้ปรับแก้ version library ให้รันผ่านแล้ว
 
 ### API Server
 ```bash

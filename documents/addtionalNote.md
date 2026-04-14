@@ -49,10 +49,31 @@ ollama list
 ollama run mistral
 ```
 
+################################################
+
+# Postgres
+
+################################################
+
+```bash
+brew services start postgresql
+
+psql -d postgres
+
+\q
+
+\l
+```
 
 
+################################################
+
+# Python Environment
+
+################################################
 
 ```bash
 pip freeze > requirements.txt
+
 pip install -r requirements.txt
 ```
