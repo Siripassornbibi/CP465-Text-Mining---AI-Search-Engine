@@ -61,28 +61,29 @@ cp .env.example .env
 
 ### CLI (ทดสอบเร็ว)
 ```bash
-python cli.py "machine learning tutorial"
-python cli.py "วิธีทำ pad thai"
+python3.12 cli.py "machine learning tutorial"
+python3.12  cli.py "วิธีทำ pad thai"
 ```
 
 🦖 ลองมาถึงตรงนี้ปรับแก้ version library ให้รันผ่านแล้ว
 
 ### API Server
 ```bash
-uvicorn api:app --reload
+uvicorn api:app --reload --port 8001
+
 ```
 
-เปิด http://localhost:8000/docs เพื่อดู Swagger UI
+เปิด http://localhost:8001/docs เพื่อดู Swagger UI
 
 #### ตัวอย่าง API call
 ```bash
 # GET
-curl "http://localhost:8000/search?q=python+asyncio"
+curl "http://localhost:8001/search?q=python+asyncio"
 
 # POST
-curl -X POST http://localhost:8000/search \
+curl -X POST http://localhost:8001/search \
   -H "Content-Type: application/json" \
-  -d '{"query": "how does pgvector work"}'
+  -d '{"query": "how does pgvector work", "max_results": 1}'
 ```
 
 #### ตัวอย่าง Response

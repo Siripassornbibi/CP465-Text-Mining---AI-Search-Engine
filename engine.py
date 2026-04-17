@@ -81,7 +81,7 @@ class AISearchEngine:
 
         # Step 5: summarize ด้วย LLM
         print("  🤖 Summarizing with LLM...")
-        pages = await summarize_all(query, pages)
+        pages = await summarize_all(query, pages, query_emb)
 
         # Step 6: embed เนื้อหาและ store
         print("  💾 Storing to database...")

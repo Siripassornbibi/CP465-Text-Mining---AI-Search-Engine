@@ -18,87 +18,98 @@ OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 
 SUMMARIZE_PROMPT = """\
 คุณเป็น AI ที่ช่วยสรุปเนื้อหาเว็บไซต์
-จากเนื้อหาด้านล่าง กรุณาสรุปเป็นภาษาที่ชัดเจน กระชับ ไม่เกิน 3-4 ประโยค
-เน้นสาระสำคัญที่เกี่ยวข้องกับคำค้นหา
-ขอเป็นภาษาไทย: "{query}"
+จากเนื้อหาที่คัดมาด้านล่าง (แบ่งเป็นส่วนๆ ที่เกี่ยวข้องกับคำค้นหา)
+กรุณาสรุปเป็นภาษาที่ชัดเจน กระชับ ไม่เกิน 4-5 ประโยค
+เน้นสาระสำคัญที่เกี่ยวข้องกับคำค้นหา: "{query}"
 
 URL: {url}
-เนื้อหา:{content}
 
-สรุป:
-"""
+เนื้อหาที่คัดมา:
+{context}
 
-async def _summarize_ollama(prompt: str) -> str:
+สรุป:"""
+
+async def _call_llm(prompt: str) -> str:
+    """เรียก LLM ตาม provider ที่ตั้งค่าไว้"""
+    if LLM_PROVIDER == "anthropic":
+        import anthropic
+        client = anthropic.AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+        msg = await client.messages.create(
+            model=LLM_MODEL,
+            max_tokens=400,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return msg.content[0].text.strip()
+ 
+    elif LLM_PROVIDER == "ollama":
+        from openai import AsyncOpenAI
+        client = AsyncOpenAI(
+            base_url=f"{OLLAMA_BASE_URL}/v1",
+            api_key="ollama",
+        )
+        resp = await client.chat.completions.create(
+            model=LLM_MODEL,
+            max_tokens=400,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return resp.choices[0].message.content.strip()
+ 
+    else:  # openai
+        from openai import AsyncOpenAI
+        client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        resp = await client.chat.completions.create(
+            model=LLM_MODEL,
+            max_tokens=400,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return resp.choices[0].message.content.strip()
+ 
+ 
+async def summarize_one(
+    query: str,
+    url: str,
+    content: str,
+    query_emb: list[float] | None = None,
+) -> str:
     """
-    ใช้ Ollama local server — compatible กับ OpenAI SDK
-    เพียงแค่เปลี่ยน base_url และไม่ต้องใส่ api_key จริง
+    สรุปเนื้อหาหน้าเดียวด้วย RAG
+    1. แบ่ง content เป็น chunks
+    2. retrieve เฉพาะ chunk ที่เกี่ยวข้องกับ query
+    3. ส่ง context ที่คัดแล้วให้ LLM สรุป
     """
-    from openai import AsyncOpenAI
-    client = AsyncOpenAI(
-        base_url=f"{OLLAMA_BASE_URL}/v1",
-        api_key="ollama",               # Ollama ไม่ต้องการ key จริง ใส่อะไรก็ได้
-    )
-    resp = await client.chat.completions.create(
-        model=LLM_MODEL,                # เช่น "llama3.2", "gemma3", "typhoon2"
-        max_tokens=300,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return resp.choices[0].message.content.strip()
-
-
-async def _summarize_anthropic(prompt: str) -> str:
-    import anthropic
-    client = anthropic.AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-    msg = await client.messages.create(
-        model=LLM_MODEL,
-        max_tokens=300,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return msg.content[0].text.strip()
-
-
-async def _summarize_openai(prompt: str) -> str:
-    from openai import AsyncOpenAI
-    client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-    resp = await client.chat.completions.create(
-        model=LLM_MODEL,
-        max_tokens=300,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return resp.choices[0].message.content.strip()
-
-
-async def summarize_one(query: str, url: str, content: str) -> str:
-    """สรุปเนื้อหาหน้าเดียว"""
     if not content.strip():
         return "ไม่สามารถดึงเนื้อหาได้"
-
+ 
+    # RAG: ดึงเฉพาะ chunk ที่เกี่ยวข้อง
+    from chunker import get_relevant_context
+    context = await get_relevant_context(query, query_emb or [], content)
+ 
     prompt = SUMMARIZE_PROMPT.format(
         query=query,
         url=url,
-        content=content[:2500],  # ป้องกัน token overflow
+        context=context,
     )
-
-    if LLM_PROVIDER == "anthropic":
-        return await _summarize_anthropic(prompt)
-    elif LLM_PROVIDER == "ollama":
-        return await _summarize_ollama(prompt)
-    else:
-        return await _summarize_openai(prompt)
-
-
-async def summarize_all(query: str, pages: list) -> list:
+ 
+    return await _call_llm(prompt)
+ 
+ 
+async def summarize_all(
+    query: str,
+    pages: list,
+    query_emb: list[float] | None = None,
+) -> list:
     """
-    สรุปทุกหน้าพร้อมกัน (concurrent)
-    pages: list of WebResult
+    สรุปทุกหน้าพร้อมกัน พร้อมส่ง query_emb สำหรับ RAG retrieval
     """
-    # จำกัด concurrency ไม่ให้ spam API
-    semaphore = asyncio.Semaphore(5)
-
+    concurrency = 2 if LLM_PROVIDER == "ollama" else 5
+    semaphore = asyncio.Semaphore(concurrency)
+ 
     async def _bounded(page):
         async with semaphore:
-            page.summary = await summarize_one(query, page.url, page.content)
+            page.summary = await summarize_one(
+                query, page.url, page.content, query_emb
+            )
         return page
-
+ 
     return await asyncio.gather(*[_bounded(p) for p in pages])
-
+ 
