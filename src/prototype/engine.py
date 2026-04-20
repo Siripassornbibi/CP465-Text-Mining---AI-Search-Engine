@@ -11,7 +11,7 @@ import asyncpg
 from dotenv import load_dotenv
 
 from db import get_pool, setup_db, cache_lookup, cache_store, store_webpage
-from crawlerapp import embed_text, embed_texts
+from embedding import embed_text, embed_texts
 from searcher import search_web, scrape_all, WebResult
 from summarizer import summarize_all
 

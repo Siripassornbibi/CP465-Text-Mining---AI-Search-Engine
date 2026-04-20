@@ -9,10 +9,10 @@ from typing import AsyncIterator, TYPE_CHECKING
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from crawlerapp.adapters.api.routes import health, search
+from embedding.adapters.api.routes import health, search
 
 if TYPE_CHECKING:
-    from crawlerapp.infrastructure.container import Container
+    from embedding.infrastructure.container import Container
 
 
 def create_app(container: "Container") -> FastAPI:

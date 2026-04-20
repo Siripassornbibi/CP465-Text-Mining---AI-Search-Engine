@@ -9,7 +9,7 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
-from crawlerapp.adapters.api.dependencies import SearchUseCaseDep
+from embedding.adapters.api.dependencies import SearchUseCaseDep
 
 router = APIRouter()
 

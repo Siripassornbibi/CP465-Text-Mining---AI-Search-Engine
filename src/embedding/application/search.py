@@ -7,8 +7,8 @@ import logging
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 
-from crawlerapp.ports.embedder import IEmbedder
-from crawlerapp.ports.search_repository import ISearchRepository, SearchResult
+from embedding.ports.embedder import IEmbedder
+from embedding.ports.search_repository import ISearchRepository, SearchResult
 
 logger = logging.getLogger(__name__)
 

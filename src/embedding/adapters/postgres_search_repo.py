@@ -6,7 +6,7 @@ from __future__ import annotations
 import asyncpg
 import numpy as np
 
-from crawlerapp.ports.search_repository import ISearchRepository, SearchResult
+from embedding.ports.search_repository import ISearchRepository, SearchResult
 
 
 class PostgresSearchRepository(ISearchRepository):
@@ -24,10 +24,10 @@ class PostgresSearchRepository(ISearchRepository):
                     pm.title,
                     1 - (c.embedding <=> $1) AS score
                 FROM   chunks c
-                JOIN   pages p          ON p.id = c.page_id
-                JOIN   page_metadata pm ON pm.page_id = p.id
+                JOIN   pages p          ON p.uuid = c.page_uuid
+                JOIN   page_metadata pm ON pm.page_uuid = p.uuid
                 WHERE  c.embedding IS NOT NULL
-                  AND  p.noindex = false
+                  AND  p.indexable = true
                 ORDER  BY c.embedding <=> $1
                 LIMIT  $2
                 """,

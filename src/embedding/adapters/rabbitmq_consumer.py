@@ -9,8 +9,8 @@ from typing import Optional
 import aio_pika
 import aio_pika.abc
 
-from crawlerapp.application.embed_chunk import EmbedChunkUseCase
-from crawlerapp.domain.events import EmbeddingRequestedEvent
+from embedding.application.embed_chunk import EmbedChunkUseCase
+from embedding.domain.events import EmbeddingRequestedEvent
 
 logger = logging.getLogger(__name__)
 

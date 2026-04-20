@@ -26,7 +26,7 @@ async def setup_db(pool: asyncpg.Pool):
     สร้าง table โดยใช้ dimension จาก embedder
     ถ้า model เปลี่ยน → ต้อง DROP TABLE แล้วรันใหม่
     """
-    from crawlerapp import get_embedding_dim
+    from embedding import get_embedding_dim
     dim = get_embedding_dim()
     print(f"  📐 Embedding dimension: {dim}")
 

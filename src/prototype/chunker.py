@@ -68,7 +68,7 @@ def cosine_similarity(a: list[float], b: list[float]) -> float:
 
 async def embed_chunks(chunks: list[Chunk]) -> list[Chunk]:
     """Embed ทุก chunk (ใช้ embedder ที่มีอยู่แล้ว)"""
-    from crawlerapp import embed_texts
+    from embedding import embed_texts
     texts = [c.text for c in chunks]
     embeddings = await embed_texts(texts)
     for chunk, emb in zip(chunks, embeddings):

@@ -1,6 +1,9 @@
 # Python
-venv/
+*.egg-info/
 __pycache__/
+*.pyc
+.eggs/
+venv/
 
 # Env
 .env
@@ -14,3 +17,7 @@ node_modules/
 # Build
 dist/
 build/
+
+
+# pip editable install
+pip-wheel-metadata/

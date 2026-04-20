@@ -7,7 +7,7 @@ from typing import Annotated
 
 from fastapi import Depends, Request
 
-from crawlerapp.application.search import SearchUseCase
+from embedding.application.search import SearchUseCase
 
 
 def get_search_use_case(request: Request) -> SearchUseCase:

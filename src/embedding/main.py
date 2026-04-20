@@ -11,19 +11,24 @@ import sys
 
 import uvicorn
 
-from crawlerapp.config import AppConfig
-from crawlerapp.infrastructure.container import Container
-from crawlerapp.adapters.api.app import create_app
+from dotenv import load_dotenv
+
+
+from embedding.config import AppConfig
+from embedding.infrastructure.container import Container
+from embedding.adapters.api.app import create_app
 
 logger = logging.getLogger(__name__)
 
-
 def main() -> None:
+    load_dotenv()
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s %(levelname)s %(name)s — %(message)s",
         datefmt="%H:%M:%S",
     )
+
+    logger.info("PROGRAM BOOST")
 
     if not os.environ.get("DB_URL"):
         logger.error("DB_URL is not set. Aborting.")

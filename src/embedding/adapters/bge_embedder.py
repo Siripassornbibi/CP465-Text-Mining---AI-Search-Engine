@@ -7,7 +7,7 @@ from typing import Optional
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
-from crawlerapp.ports.embedder import IEmbedder
+from embedding.ports.embedder import IEmbedder
 
 
 class BGEEmbedder(IEmbedder):

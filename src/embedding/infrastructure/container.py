@@ -14,13 +14,15 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_ollama import ChatOllama
 from pgvector.asyncpg import register_vector
 
-from crawlerapp.adapters.bge_embedder import BGEEmbedder
-from crawlerapp.adapters.postgres_chunk_repo import PostgresChunkRepository
-from crawlerapp.adapters.postgres_search_repo import PostgresSearchRepository
-from crawlerapp.adapters.rabbitmq_consumer import RabbitMQConsumer
-from crawlerapp.application.embed_chunk import EmbedChunkUseCase
-from crawlerapp.application.search import SearchUseCase
-from crawlerapp.config import AppConfig
+from embedding.adapters.bge_embedder import BGEEmbedder
+from embedding.adapters.ollama_embedder import OllamaEmbedder
+from embedding.adapters.postgres_chunk_repo import PostgresChunkRepository
+from embedding.adapters.postgres_search_repo import PostgresSearchRepository
+from embedding.adapters.rabbitmq_consumer import RabbitMQConsumer
+from embedding.application.embed_chunk import EmbedChunkUseCase
+from embedding.application.search import SearchUseCase
+from embedding.config import AppConfig
+from embedding.ports.embedder import IEmbedder
 
 logger = logging.getLogger(__name__)
 
@@ -36,26 +38,54 @@ Context:
 {context}"""
 
 
+def _build_embedder(config: AppConfig) -> IEmbedder:
+    """
+    Factory that returns the correct IEmbedder based on config.embedder.backend.
+
+    "local"  → BGEEmbedder  (loads model on this machine)
+    "ollama" → OllamaEmbedder (calls remote Ollama HTTP API)
+    """
+    cfg = config.embedder
+
+    if cfg.backend == "local":
+        logger.info("Embedder: local BGE — model=%s device=%s", cfg.model, cfg.device)
+        return BGEEmbedder(
+            model_name=cfg.model,
+            device=cfg.device,
+            batch_size=cfg.batch_size,
+        )
+
+    if cfg.backend == "ollama":
+        logger.info(
+            "Embedder: remote Ollama — url=%s model=%s",
+            cfg.ollama_url, cfg.model,
+        )
+        return OllamaEmbedder(
+            base_url=cfg.ollama_url,
+            model=cfg.model,
+            timeout=cfg.timeout,
+        )
+
+    raise ValueError(f"Unknown embedder backend: '{cfg.backend}'. Use 'local' or 'ollama'.")
+
+
 class Container:
     def __init__(self, config: AppConfig) -> None:
         self.config = config
 
-        # shared thread pool for CPU-bound work (embedding)
+        # thread pool for CPU-bound work
+        # OllamaEmbedder uses httpx (blocking) so still needs the executor
         self._executor = ThreadPoolExecutor(max_workers=2, thread_name_prefix="embedder")
 
-        # ports → adapters (built eagerly; connections opened in start())
-        self._pool: asyncpg.Pool | None = None
-        self.embedder = BGEEmbedder(
-            model_name=config.embedder.model,
-            device=config.embedder.device,
-            batch_size=config.embedder.batch_size,
-        )
+        # build the correct embedder once at startup
+        self.embedder: IEmbedder = _build_embedder(config)
 
-        # repositories (need pool — finalised in start())
+        # DB pool + repos (opened in start())
+        self._pool: asyncpg.Pool | None = None
         self._chunk_repo: PostgresChunkRepository | None = None
         self._search_repo: PostgresSearchRepository | None = None
 
-        # use cases (finalised in start())
+        # use cases (wired in start())
         self.embed_chunk_use_case: EmbedChunkUseCase | None = None
         self.search_use_case: SearchUseCase | None = None
 
@@ -71,7 +101,7 @@ class Container:
         ])
         self.llm_chain = RunnablePassthrough() | prompt | llm | StrOutputParser()
 
-        # RabbitMQ consumer (finalised in start())
+        # RabbitMQ consumer (wired in start())
         self._consumer: RabbitMQConsumer | None = None
 
     async def start(self) -> None:
@@ -115,5 +145,7 @@ class Container:
             await self._consumer.stop()
         if self._pool:
             await self._pool.close()
+        if isinstance(self.embedder, OllamaEmbedder):
+            self.embedder.close()
         self._executor.shutdown(wait=False)
         logger.info("Container shut down.")
