@@ -5,7 +5,7 @@ cli.py — ทดสอบ search engine ผ่าน terminal
 import asyncio
 import sys
 import textwrap
-from engine import get_engine
+from prototype.engine import get_engine
 
 
 async def main(query: str):

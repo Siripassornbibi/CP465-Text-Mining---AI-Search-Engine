@@ -1,0 +1,24 @@
+{
+	"rabbitmq": {
+		"url": "amqp://guest:guest@localhost:5672/",
+		"exchange": "prawler.embedding",
+		"exchange_type": "topic",
+		"queue": "prawler.embedding",
+		"routing_key": "prawler.embedding.#",
+		"prefetch_count": 4
+	},
+	"embedder": {
+		"model": "BAAI/bge-m3",
+		"batch_size": 64,
+		"device": "cuda"
+	},
+	"llm": {
+		"model": "llama3.2",
+		"ollama_url": "http://localhost:11434"
+	},
+	"api": {
+		"host": "0.0.0.0",
+		"port": 8000,
+		"top_k": 8
+	}
+}

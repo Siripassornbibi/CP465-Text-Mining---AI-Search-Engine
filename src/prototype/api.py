@@ -9,7 +9,7 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from engine import get_engine, AISearchEngine, SearchResult
+from prototype.engine import get_engine, AISearchEngine, SearchResult
 
 
 # ── Lifespan (startup / shutdown) ──────────────────────────────────────────
