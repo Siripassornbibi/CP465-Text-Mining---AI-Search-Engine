@@ -9,7 +9,7 @@
 	},
 	"embedder": {
 		"model": "BAAI/bge-m3",
-		"batch_size": 64,
+		"batch_size": 32,
 		"device": "cuda"
 	},
 	"llm": {

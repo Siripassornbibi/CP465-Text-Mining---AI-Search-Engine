@@ -1,10 +1,8 @@
 """
 config.py — loads and validates config.json
-database_url is read from the DB_URL environment variable, not from config.json
+database_url is read from the DB_URL environment variable.
 """
-
 from __future__ import annotations
-
 import json
 import os
 from dataclasses import dataclass
@@ -53,11 +51,9 @@ class AppConfig:
     @classmethod
     def load(cls, path: str = "config.json") -> "AppConfig":
         raw = json.loads(Path(path).read_text())
-
         database_url = os.environ.get("DB_URL")
         if not database_url:
             raise RuntimeError("Environment variable DB_URL is not set.")
-
         return cls(
             database_url=database_url,
             rabbitmq=RabbitMQConfig(**raw["rabbitmq"]),
