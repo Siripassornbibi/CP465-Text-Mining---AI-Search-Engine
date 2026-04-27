@@ -4,6 +4,10 @@ __main__.py — allows:
     python -m embedding worker   → starts RabbitMQ worker
 """
 import sys
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 def main():

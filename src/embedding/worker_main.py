@@ -10,6 +10,10 @@ import sys
 
 from embedding.config import AppConfig
 from embedding.infrastructure.container import WorkerContainer
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 

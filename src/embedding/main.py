@@ -12,6 +12,10 @@ import uvicorn
 from embedding.config import AppConfig
 from embedding.infrastructure.container import ApiContainer
 from embedding.adapters.api.app import create_app
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 
