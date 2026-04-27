@@ -18,6 +18,5 @@ node_modules/
 dist/
 build/
 
-
 # pip editable install
 pip-wheel-metadata/

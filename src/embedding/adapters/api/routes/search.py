@@ -30,6 +30,22 @@ class SearchResponse(BaseModel):
     summary: str
     sources: list[SourceLink]
 
+PREAMBLES = (
+    "here is a concise summary",
+    "here is a summary",
+    "here's a summary",
+    "to answer your query",
+)
+
+def _strip_preamble(text: str) -> str:
+    lower = text.lower()
+    for p in PREAMBLES:
+        if lower.startswith(p):
+            # cut to the first colon or newline after the preamble
+            cut = text.find(":", len(p))
+            if cut != -1:
+                return text[cut + 1:].lstrip()
+    return text
 
 def _format_context(results) -> str:
     parts = []
@@ -68,7 +84,7 @@ async def search(req: SearchRequest, request: Request, use_case: SearchUseCaseDe
 
     return SearchResponse(
         query=req.query,
-        summary=summary,
+        summary=_strip_preamble(summary),
         sources=[SourceLink(**s) for s in _dedupe_sources(response.results)],
     )
 
@@ -78,15 +94,33 @@ async def search_stream(req: SearchRequest, request: Request, use_case: SearchUs
     response = await use_case.execute(req.query, req.top_k)
     if not response.results:
         raise HTTPException(status_code=404, detail="No relevant results found.")
-
+ 
     context = _format_context(response.results)
     sources = _dedupe_sources(response.results)
     chain   = request.app.state.container.llm_chain
-
+ 
     async def generate():
+        buffer = ""
+        preamble_stripped = False
+ 
         async for token in chain.astream({"context": context, "query": req.query}):
-            yield f"data: {token}\n\n"
+            if not preamble_stripped:
+                # accumulate until we have enough text to detect a preamble
+                buffer += token
+                if len(buffer) < 120:
+                    continue
+                buffer = _strip_preamble(buffer)
+                preamble_stripped = True
+                yield f"data: {buffer}\n\n"
+                buffer = ""
+            else:
+                yield f"data: {token}\n\n"
+ 
+        # flush any remaining buffer (short responses)
+        if buffer:
+            yield f"data: {_strip_preamble(buffer)}\n\n"
+ 
         yield f"event: sources\ndata: {json.dumps(sources)}\n\n"
         yield "data: [DONE]\n\n"
-
+ 
     return StreamingResponse(generate(), media_type="text/event-stream")
