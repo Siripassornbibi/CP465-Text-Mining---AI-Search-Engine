@@ -131,6 +131,7 @@ async def search_stream(req: SearchRequest, request: Request, use_case: SearchUs
     chain   = request.app.state.container.llm_chain
 
     async def generate():
+        yield f"event: sources\ndata: {json.dumps(sources)}\n\n"
         buffer = ""
         preamble_stripped = False
 
@@ -152,7 +153,6 @@ async def search_stream(req: SearchRequest, request: Request, use_case: SearchUs
         if buffer:
             yield _sse_token(_strip_preamble(buffer))
 
-        yield f"event: sources\ndata: {json.dumps(sources)}\n\n"
         yield f"data: {json.dumps('[DONE]')}\n\n"
 
     return StreamingResponse(generate(), media_type="text/event-stream")
