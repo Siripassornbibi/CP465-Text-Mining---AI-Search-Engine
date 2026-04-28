@@ -14,7 +14,6 @@ logger = logging.getLogger(__name__)
 
 QUERY_PREFIX = "Represent this query for searching: "
 
-
 @dataclass
 class SearchResponse:
     query: str

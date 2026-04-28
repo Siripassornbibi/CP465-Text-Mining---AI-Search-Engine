@@ -9,7 +9,7 @@ import logging
 from concurrent.futures import ThreadPoolExecutor
 
 from embedding.domain.events import EmbeddingRequestedEvent
-from embedding.ports.chunk_repository import IChunkRepository
+from embedding.ports.chunk_repository import CURRENT_EMBEDDING_VERSION, IChunkRepository
 from embedding.ports.embedder import IEmbedder
 
 logger = logging.getLogger(__name__)
@@ -47,7 +47,7 @@ class EmbedChunkUseCase:
                 self._executor,
                 lambda t=text: self._embedder.embed(t),
             )
-            await self._repo.save_embedding(chunk.id, embedding)
+            await self._repo.save_embedding(chunk.id, embedding, CURRENT_EMBEDDING_VERSION)
             logger.info("Saved embedding for chunk %s", chunk.id)
 
         logger.info("Done — %d chunk(s) embedded for page %s.", len(chunks), event.page_uuid)

@@ -8,6 +8,7 @@ import numpy as np
  
 from embedding.domain.chunk import Chunk
  
+CURRENT_EMBEDDING_VERSION = 2
  
 class IChunkRepository(ABC):
  
@@ -17,6 +18,12 @@ class IChunkRepository(ABC):
         ...
  
     @abstractmethod
-    async def save_embedding(self, chunk_id: str, embedding: np.ndarray) -> None:
-        """Persist the embedding vector for a single chunk."""
+    async def save_embedding(
+        self,
+        chunk_id: str,
+        embedding: np.ndarray,
+        version: int = CURRENT_EMBEDDING_VERSION,
+    ) -> None:
+        """Persist the embedding vector and version for a single chunk."""
         ...
+ 

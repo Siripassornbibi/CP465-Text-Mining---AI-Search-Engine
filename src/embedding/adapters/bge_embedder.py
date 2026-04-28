@@ -14,7 +14,7 @@ class BGEEmbedder(IEmbedder):
     def __init__(self, model_name: str, device: Optional[str] = None, batch_size: int = 64) -> None:
         self._model = SentenceTransformer(model_name, device=device)
         self._batch_size = batch_size
-        self._dims = self._model.get_sentence_embedding_dimension()
+        self._dims = self._model.get_embedding_dimension()
 
     def embed(self, text: str) -> np.ndarray:
         return self._model.encode(

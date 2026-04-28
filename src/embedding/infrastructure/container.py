@@ -5,6 +5,7 @@ ApiContainer    — FastAPI + search use case + LLM chain
 WorkerContainer — RabbitMQ consumer + embed use case
 """
 from __future__ import annotations
+import asyncio
 import logging
 from concurrent.futures import ThreadPoolExecutor
 
@@ -163,7 +164,13 @@ class WorkerContainer:
         if self._consumer:
             await self._consumer.stop()
         if self._pool:
-            await self._pool.close()
+            # timeout=5 prevents hanging if a query is mid-flight
+            try:
+                await asyncio.wait_for(self._pool.close(), timeout=5)
+                logger.info("Postgres pool closed.")
+            except asyncio.TimeoutError:
+                logger.warning("Postgres pool close timed out — forcing.")
+                self._pool.terminate()
         if isinstance(self.embedder, OllamaEmbedder):
             self.embedder.close()
         self._executor.shutdown(wait=False)

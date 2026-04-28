@@ -10,7 +10,7 @@
 	"embedder": {
 		"backend": "ollama",
 		"model": "bge-m3",
-		"ollama_url": "http://192.168.1.97:11434",
+		"ollama_url": "http://localhost:11434",
 		"timeout": 60
 	},
 	"llm": {

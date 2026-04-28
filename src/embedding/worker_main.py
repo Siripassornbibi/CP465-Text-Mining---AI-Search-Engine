@@ -10,10 +10,6 @@ import sys
 
 from embedding.config import AppConfig
 from embedding.infrastructure.container import WorkerContainer
-from dotenv import load_dotenv
-
-# Load environment variables from .env file
-load_dotenv()
 
 logger = logging.getLogger(__name__)
 
@@ -21,21 +17,28 @@ logger = logging.getLogger(__name__)
 async def run(container: WorkerContainer) -> None:
     await container.start()
 
-    loop = asyncio.get_event_loop()
+    loop = asyncio.get_running_loop()
     stop_event = asyncio.Event()
 
-    # handle Ctrl+C and SIGTERM gracefully
     def _request_stop(*_):
         loop.call_soon_threadsafe(stop_event.set)
 
-    signal.signal(signal.SIGINT,  _request_stop)
-    signal.signal(signal.SIGTERM, _request_stop)
+    # register both signals so Ctrl+C and Docker/k8s SIGTERM both clean up
+    for sig in (signal.SIGINT, signal.SIGTERM):
+        signal.signal(sig, _request_stop)
 
     logger.info("Worker running — press Ctrl+C to stop.")
-    await stop_event.wait()
 
-    logger.info("Shutting down worker ...")
-    await container.stop()
+    try:
+        await stop_event.wait()
+    finally:
+        # finally block runs even if the coroutine is cancelled externally
+        logger.info("Shutting down worker ...")
+        try:
+            await container.stop()
+            logger.info("Postgres connection closed. Stopped.")
+        except Exception as e:
+            logger.error("Error during shutdown: %s", e)
 
 
 def main() -> None:
@@ -52,8 +55,11 @@ def main() -> None:
     cfg = AppConfig.load(os.getenv("CONFIG_PATH", "config.json"))
     container = WorkerContainer(cfg)
 
-    asyncio.run(run(container))
-    logger.info("Stopped.")
+    try:
+        asyncio.run(run(container))
+    except KeyboardInterrupt:
+        # suppress the traceback — cleanup already happened in the finally block
+        pass
 
 
 if __name__ == "__main__":
