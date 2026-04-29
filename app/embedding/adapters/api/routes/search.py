@@ -9,7 +9,7 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
-from app.embedding.adapters.api.dependencies import SearchUseCaseDep
+from embedding.adapters.api.dependencies import SearchUseCaseDep, ExpandUseCaseDep
 
 router = APIRouter()
 
@@ -27,6 +27,7 @@ class SourceLink(BaseModel):
 
 class SearchResponse(BaseModel):
     query: str
+    expanded_queries: list[str]
     summary: str
     sources: list[SourceLink]
 
@@ -47,7 +48,6 @@ _PREAMBLES = (
 
 
 def _fix_newlines(text: str) -> str:
-    """Ollama sometimes streams literal '\\n' instead of real newline characters."""
     return text.replace("\\n", "\n")
 
 
@@ -64,13 +64,6 @@ def _clean(text: str) -> str:
 
 
 def _sse_token(token: str) -> str:
-    """
-    Encode a token as a safe SSE data line.
-    JSON-encodes the token so embedded newlines survive the SSE wire format.
-    Frontend must JSON.parse() each data field.
-
-    e.g. token = "hello\nworld" → data: "hello\\nworld"
-    """
     return f"data: {json.dumps(token)}\n\n"
 
 
@@ -99,14 +92,27 @@ def _dedupe_sources(results) -> list[dict]:
 # ---------------------------------------------------------------------------
 
 @router.post("/search", response_model=SearchResponse)
-async def search(req: SearchRequest, request: Request, use_case: SearchUseCaseDep) -> SearchResponse:
-    response = await use_case.execute(req.query, req.top_k)
+async def search(
+    req: SearchRequest,
+    request: Request,
+    search_use_case: SearchUseCaseDep,
+    expand_use_case: ExpandUseCaseDep,
+) -> SearchResponse:
+    # 1. expand query
+    all_queries = await expand_use_case.execute(req.query)
+
+    # 2. multi-query retrieval
+    response = await search_use_case.execute(
+        req.query,
+        top_k=req.top_k,
+        expanded_queries=all_queries,
+    )
     if not response.results:
         raise HTTPException(status_code=404, detail="No relevant results found.")
 
+    # 3. generate summary
     context = _format_context(response.results)
     chain   = request.app.state.container.llm_chain
-
     loop    = asyncio.get_event_loop()
     summary = await loop.run_in_executor(
         None,
@@ -115,14 +121,28 @@ async def search(req: SearchRequest, request: Request, use_case: SearchUseCaseDe
 
     return SearchResponse(
         query=req.query,
+        expanded_queries=response.expanded_queries,
         summary=_clean(summary),
         sources=[SourceLink(**s) for s in _dedupe_sources(response.results)],
     )
 
 
 @router.post("/search/stream")
-async def search_stream(req: SearchRequest, request: Request, use_case: SearchUseCaseDep):
-    response = await use_case.execute(req.query, req.top_k)
+async def search_stream(
+    req: SearchRequest,
+    request: Request,
+    search_use_case: SearchUseCaseDep,
+    expand_use_case: ExpandUseCaseDep,
+):
+    # 1. expand query
+    all_queries = await expand_use_case.execute(req.query)
+
+    # 2. multi-query retrieval
+    response = await search_use_case.execute(
+        req.query,
+        top_k=req.top_k,
+        expanded_queries=all_queries,
+    )
     if not response.results:
         raise HTTPException(status_code=404, detail="No relevant results found.")
 
@@ -131,7 +151,13 @@ async def search_stream(req: SearchRequest, request: Request, use_case: SearchUs
     chain   = request.app.state.container.llm_chain
 
     async def generate():
+        # send expanded queries so the frontend can show them
+        yield f"event: queries\ndata: {json.dumps(all_queries)}\n\n"
+
+        # send sources immediately
         yield f"event: sources\ndata: {json.dumps(sources)}\n\n"
+
+        # stream summary tokens
         buffer = ""
         preamble_stripped = False
 
@@ -149,7 +175,6 @@ async def search_stream(req: SearchRequest, request: Request, use_case: SearchUs
             else:
                 yield _sse_token(token)
 
-        # flush remaining buffer for short responses
         if buffer:
             yield _sse_token(_strip_preamble(buffer))
 

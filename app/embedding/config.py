@@ -47,6 +47,7 @@ class APIConfig:
     host: str
     port: int
     top_k: int
+    expand_queries: int = 2   # number of additional queries to generate (0 = disabled)
 
 
 @dataclass

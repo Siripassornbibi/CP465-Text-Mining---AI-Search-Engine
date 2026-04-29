@@ -9,6 +9,7 @@ import numpy as np
 
 # BGE-M3 instruction prefixes (asymmetric retrieval)
 PASSAGE_PREFIX = "Represent this sentence: "
+QUERY_PREFIX   = "Represent this query for searching: "
 
 @dataclass
 class Chunk:
