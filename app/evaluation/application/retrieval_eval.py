@@ -32,7 +32,7 @@ class RetrievalEvaluator:
 
             result = RetrievalResult(
                 question=case.question,
-                expected_url=case.expected_url,
+                expected_urls=case.expected_urls,
                 retrieved_urls=[r.url for r in response.results],
                 retrieved_contents=[r.content for r in response.results],
                 scores=[r.score for r in response.results],

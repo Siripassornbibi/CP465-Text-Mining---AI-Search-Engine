@@ -23,9 +23,9 @@ def print_retrieval_report(report: RetrievalReport) -> None:
         print(f"  {hit} [{rr:.2f}] (top={top:.2f}) {r.question[:55]}")
 
         if not r.hit_at(report.top_k):
-            print(f"    Expected : {r.expected_url}")
+            print(f"    Expected : {', '.join(r.expected_urls)}")
             if r.retrieved_urls:
-                print(f"    Got      : {r.retrieved_urls[0]}")
+                print(f"    Got      : {', '.join(r.retrieved_urls)}")
 
     print("═" * 52 + "\n")
 

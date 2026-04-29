@@ -15,7 +15,9 @@ def load_test_cases(path: str = "test_cases.json") -> list[TestCase]:
 
     {
       "How does Go handle concurrency?": {
-        "expected_url": "https://...",
+        "expected_urls": [
+            "https://..."
+        ],
         "ground_truth": "Go uses goroutines..."
       },
       ...
@@ -28,16 +30,26 @@ def load_test_cases(path: str = "test_cases.json") -> list[TestCase]:
         if not isinstance(value, dict):
             raise ValueError(
                 f"Expected a dict for question '{question}', got {type(value).__name__}. "
-                f"Format must be: {{ 'expected_url': '...', 'ground_truth': '...' }}"
+                f"Format must be: {{ 'expected_urls': ['...]', 'ground_truth': '...' }}"
             )
-        missing = [k for k in ("expected_url", "ground_truth") if k not in value]
+        missing = [k for k in ("expected_urls", "ground_truth") if k not in value]
         if missing:
             raise ValueError(
                 f"Question '{question}' is missing keys: {missing}"
             )
+		
+        expected = value["expected_urls"]
+
+        if isinstance(expected, str):
+            expected = [expected]
+        elif not isinstance(expected, list):
+            raise ValueError(
+				f"'expected_urls' for question '{question}' must be string or list"
+			)
+
         cases.append(TestCase(
             question=question,
-            expected_url=value["expected_url"],
+            expected_urls=expected,
             ground_truth=value["ground_truth"],
         ))
 

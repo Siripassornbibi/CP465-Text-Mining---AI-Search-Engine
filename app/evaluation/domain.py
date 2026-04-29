@@ -8,14 +8,14 @@ from dataclasses import dataclass, field
 @dataclass
 class TestCase:
     question: str
-    expected_url: str
+    expected_urls: list[str]
     ground_truth: str
 
 
 @dataclass
 class RetrievalResult:
     question: str
-    expected_url: str
+    expected_urls: list[str]
     retrieved_urls: list[str]
     retrieved_contents: list[str]
     scores: list[float]
@@ -23,13 +23,13 @@ class RetrievalResult:
     def hit_at(self, k: int) -> bool:
         """True if expected_url appears in the top-k results."""
         return any(
-            self.expected_url in url
+            url in self.expected_urls
             for url in self.retrieved_urls[:k]
         )
 
     def reciprocal_rank(self) -> float:
         for i, url in enumerate(self.retrieved_urls):
-            if self.expected_url in url:
+            if url in self.expected_urls:
                 return 1.0 / (i + 1)
         return 0.0
 

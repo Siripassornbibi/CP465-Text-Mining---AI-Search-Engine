@@ -1,0 +1,123 @@
+{
+	"How to lose weight fast but safely?": {
+		"expected_urls": [
+			"https://www.cdc.gov/healthyweight/index.html",
+			"https://health.kapook.com/view228052.html"
+		],
+		"ground_truth": "Losing weight safely involves a balanced diet, regular exercise, staying hydrated, and avoiding extreme calorie restriction or fad diets."
+	},
+	"What are the symptoms of COVID-19?": {
+		"expected_urls": [
+			"https://www.who.int/health-topics/coronavirus"
+		],
+		"ground_truth": "Common symptoms include fever, cough, fatigue, and loss of taste or smell. Severe cases may involve difficulty breathing."
+	},
+	"How to make pancakes at home?": {
+		"expected_urls": [
+			"https://www.bbcgoodfood.com/recipes/easy-pancakes"
+		],
+		"ground_truth": "Pancakes are made by mixing flour, eggs, milk, and baking powder into a batter, then cooking it on a hot pan until golden brown."
+	},
+	"What is the capital of France?": {
+		"expected_urls": [
+			"https://en.wikipedia.org/wiki/Paris"
+		],
+		"ground_truth": "The capital of France is Paris."
+	},
+	"How to improve English speaking skills?": {
+		"expected_urls": [
+			"https://www.britishcouncil.org/school-resources/find/lesson-plans/improving-speaking-skills"
+		],
+		"ground_truth": "Improving English speaking involves practicing regularly, speaking with others, expanding vocabulary, and listening to native speakers."
+	},
+	"What is climate change?": {
+		"expected_urls": [
+			"https://climate.nasa.gov/"
+		],
+		"ground_truth": "Climate change refers to long-term shifts in temperatures and weather patterns, mainly caused by human activities like burning fossil fuels."
+	},
+	"How to save money effectively?": {
+		"expected_urls": [
+			"https://www.nerdwallet.com/article/finance/how-to-save-money"
+		],
+		"ground_truth": "Saving money involves budgeting, reducing unnecessary expenses, setting financial goals, and automating savings."
+	},
+	"What are the benefits of drinking water?": {
+		"expected_urls": [
+			"https://www.healthline.com/nutrition/7-health-benefits-of-water"
+		],
+		"ground_truth": "Drinking water helps maintain hydration, supports bodily functions, improves skin health, and aids digestion."
+	},
+	"How to reduce stress quickly?": {
+		"expected_urls": [
+			"https://www.apa.org/topics/stress"
+		],
+		"ground_truth": "Stress can be reduced through deep breathing, exercise, meditation, and taking short breaks."
+	},
+	"What is artificial intelligence?": {
+		"expected_urls": [
+			"https://www.ibm.com/topics/artificial-intelligence"
+		],
+		"ground_truth": "Artificial intelligence is the simulation of human intelligence in machines that can learn, reason, and solve problems."
+	},
+	"How to cook rice properly?": {
+		"expected_urls": [
+			"https://www.simplyrecipes.com/recipes/how_to_make_rice/"
+		],
+		"ground_truth": "Rice is cooked by rinsing it, adding water in the correct ratio, and simmering until the water is absorbed."
+	},
+	"What is the best way to study for exams?": {
+		"expected_urls": [
+			"https://www.ox.ac.uk/students/academic/guidance/study"
+		],
+		"ground_truth": "Effective studying includes creating a schedule, reviewing material regularly, practicing problems, and avoiding cramming."
+	},
+	"How to get better sleep at night?": {
+		"expected_urls": [
+			"https://www.sleepfoundation.org/how-sleep-works/how-to-sleep-better"
+		],
+		"ground_truth": "Better sleep can be achieved by maintaining a consistent schedule, avoiding screens before bed, and creating a comfortable sleep environment."
+	},
+	"What is photosynthesis?": {
+		"expected_urls": [
+			"https://www.nationalgeographic.org/encyclopedia/photosynthesis/"
+		],
+		"ground_truth": "Photosynthesis is the process by which plants convert sunlight, water, and carbon dioxide into oxygen and glucose."
+	},
+	"How to start exercising for beginners?": {
+		"expected_urls": [
+			"https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/exercise/art-20048389"
+		],
+		"ground_truth": "Beginners should start with light activities like walking, gradually increase intensity, and stay consistent."
+	},
+	"What causes headaches?": {
+		"expected_urls": [
+			"https://www.nhs.uk/conditions/headaches/"
+		],
+		"ground_truth": "Headaches can be caused by stress, dehydration, lack of sleep, or underlying medical conditions."
+	},
+	"How to clean a laptop screen?": {
+		"expected_urls": [
+			"https://www.hp.com/us-en/shop/tech-takes/how-to-clean-laptop-screen"
+		],
+		"ground_truth": "Use a microfiber cloth and a small amount of screen-safe cleaner. Avoid spraying liquid directly onto the screen."
+	},
+	"What are the side effects of coffee?": {
+		"expected_urls": [
+			"https://www.healthline.com/nutrition/caffeine-side-effects"
+		],
+		"ground_truth": "Coffee can cause insomnia, increased heart rate, anxiety, and digestive issues when consumed in excess."
+	},
+	"How to write a resume?": {
+		"expected_urls": [
+			"https://www.indeed.com/career-advice/resumes-cover-letters/how-to-write-a-resume"
+		],
+		"ground_truth": "A resume should include contact information, work experience, skills, and education, tailored to the job applied for."
+	},
+	"What is the tallest mountain in the world?": {
+		"expected_urls": [
+			"https://en.wikipedia.org/wiki/Mount_Everest"
+		],
+		"ground_truth": "Mount Everest is the tallest mountain in the world above sea level."
+	}
+}
