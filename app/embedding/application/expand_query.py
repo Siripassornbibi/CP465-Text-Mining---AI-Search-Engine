@@ -1,6 +1,9 @@
 """
 application/expand_query.py — generates related queries from the user query
 using the LLM to improve retrieval recall (query expansion).
+
+Uses a bare LLM chain (no system prompt, no {context} placeholder) so
+the expansion prompt is sent directly as a human message.
 """
 from __future__ import annotations
 import asyncio
@@ -11,9 +14,9 @@ from concurrent.futures import ThreadPoolExecutor
 logger = logging.getLogger(__name__)
 
 EXPANSION_PROMPT = """\
-Given the search query below, generate {count} alternative phrasings that capture \
-the same intent from different angles. These will be used to retrieve documents \
-so make them diverse and specific.
+Given the search query below, generate {count} alternative phrasings that \
+capture the same intent from different angles. These will be used to retrieve \
+documents so make them diverse and specific.
 
 Rules:
 - Output ONLY the queries, one per line, no numbering, no explanation
@@ -28,7 +31,7 @@ Alternative queries:"""
 class ExpandQueryUseCase:
     def __init__(
         self,
-        llm_chain,
+        llm_chain,           # bare chain: llm | StrOutputParser()
         executor: ThreadPoolExecutor,
         expand_count: int = 2,
     ) -> None:
@@ -53,12 +56,10 @@ class ExpandQueryUseCase:
                 count=self._expand_count,
                 query=query,
             )
+            # invoke the bare chain with a plain string — no dict, no placeholders
             raw: str = await loop.run_in_executor(
                 self._executor,
-                lambda: self._chain.invoke({
-                    "context": "",
-                    "query": prompt,
-                }),
+                lambda: self._chain.invoke(prompt),
             )
 
             expanded = _parse_queries(raw, limit=self._expand_count)

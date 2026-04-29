@@ -24,23 +24,24 @@ from embedding.config import AppConfig
 from embedding.ports.embedder import IEmbedder
 
 logger = logging.getLogger(__name__)
- 
+
 SYSTEM_PROMPT = """You are a helpful search assistant. Using ONLY the context \
 passages below, write a concise summary paragraph that directly answers the \
 user's query. Do not make up information. Do NOT include any preamble, \
 introduction, or phrases like "Here is a summary" — start the answer directly.
- 
+
 After the summary, list sources as:
 Sources:
 - <title> — <url>
- 
+
 Context:
 {context}"""
- 
+
+
 # ---------------------------------------------------------------------------
 # Shared helpers
 # ---------------------------------------------------------------------------
- 
+
 def _build_embedder(config: AppConfig) -> IEmbedder:
     cfg = config.embedder
     if cfg.backend == "local":
@@ -58,7 +59,8 @@ def _build_embedder(config: AppConfig) -> IEmbedder:
             timeout=cfg.timeout,
         )
     raise ValueError(f"Unknown embedder backend: '{cfg.backend}'. Use 'local' or 'ollama'.")
- 
+
+
 async def _open_pool(database_url: str) -> asyncpg.Pool:
     logger.info("Opening Postgres pool ...")
     return await asyncpg.create_pool(
@@ -67,26 +69,26 @@ async def _open_pool(database_url: str) -> asyncpg.Pool:
         max_size=10,
         init=register_vector,
     )
- 
- 
+
+
 # ---------------------------------------------------------------------------
 # ApiContainer — runs FastAPI + search
 # ---------------------------------------------------------------------------
- 
+
 class ApiContainer:
     """Boots only what the API needs: DB pool, embedder, LLM chain, search use case."""
- 
+
     def __init__(self, config: AppConfig) -> None:
         self.config = config
         self._executor = ThreadPoolExecutor(max_workers=2, thread_name_prefix="embedder")
         self.embedder: IEmbedder = _build_embedder(config)
- 
+
         # LLM chain — import here so worker mode doesn't need langchain
         from langchain_core.output_parsers import StrOutputParser
         from langchain_core.prompts import ChatPromptTemplate
         from langchain_core.runnables import RunnablePassthrough
         from langchain_ollama import ChatOllama
- 
+
         llm = ChatOllama(
             model=config.llm.model,
             base_url=config.llm.ollama_url,
@@ -97,11 +99,15 @@ class ApiContainer:
             ("human", "{query}"),
         ])
         self.llm_chain = RunnablePassthrough() | prompt | llm | StrOutputParser()
- 
+
+        # bare chain for query expansion — no system prompt, no {context} placeholder
+        # passing the RAG chain to expansion was the bug: {context} caused confusion
+        self.expand_llm_chain = llm | StrOutputParser()
+
         self._pool: asyncpg.Pool | None = None
         self.search_use_case: SearchUseCase | None = None
         self.expand_query_use_case: ExpandQueryUseCase | None = None
- 
+
     async def start(self) -> None:
         self._pool = await _open_pool(self.config.database_url)
         search_repo = PostgresSearchRepository(self._pool)
@@ -112,12 +118,12 @@ class ApiContainer:
             top_k=self.config.api.top_k,
         )
         self.expand_query_use_case = ExpandQueryUseCase(
-            llm_chain=self.llm_chain,
+            llm_chain=self.expand_llm_chain,
             executor=self._executor,
             expand_count=self.config.api.expand_queries,
         )
         logger.info("ApiContainer ready.")
- 
+
     async def stop(self) -> None:
         if self._pool:
             await self._pool.close()
@@ -125,33 +131,33 @@ class ApiContainer:
             self.embedder.close()
         self._executor.shutdown(wait=False)
         logger.info("ApiContainer shut down.")
- 
- 
+
+
 # ---------------------------------------------------------------------------
 # WorkerContainer — runs RabbitMQ consumer + embedding
 # ---------------------------------------------------------------------------
- 
+
 class WorkerContainer:
     """Boots only what the worker needs: DB pool, embedder, RabbitMQ consumer."""
- 
+
     def __init__(self, config: AppConfig) -> None:
         self.config = config
         self._executor = ThreadPoolExecutor(max_workers=2, thread_name_prefix="embedder")
         self.embedder: IEmbedder = _build_embedder(config)
- 
+
         self._pool: asyncpg.Pool | None = None
         self._consumer: RabbitMQConsumer | None = None
- 
+
     async def start(self) -> None:
         self._pool = await _open_pool(self.config.database_url)
         chunk_repo = PostgresChunkRepository(self._pool)
- 
+
         embed_use_case = EmbedChunkUseCase(
             repo=chunk_repo,
             embedder=self.embedder,
             executor=self._executor,
         )
- 
+
         rmq = self.config.rabbitmq
         self._consumer = RabbitMQConsumer(
             amqp_url=rmq.url,
@@ -164,7 +170,7 @@ class WorkerContainer:
         )
         await self._consumer.start()
         logger.info("WorkerContainer ready — listening on queue '%s'.", rmq.queue)
- 
+
     async def stop(self) -> None:
         if self._consumer:
             await self._consumer.stop()
@@ -180,4 +186,3 @@ class WorkerContainer:
             self.embedder.close()
         self._executor.shutdown(wait=False)
         logger.info("WorkerContainer shut down.")
- 
