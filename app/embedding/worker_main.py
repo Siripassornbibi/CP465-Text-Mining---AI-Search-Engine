@@ -8,10 +8,38 @@ import os
 import signal
 import sys
 
-from app.embedding.config import AppConfig
-from app.embedding.infrastructure.container import WorkerContainer
+from embedding.config import AppConfig
+from embedding.infrastructure.container import WorkerContainer
+
+from dotenv import load_dotenv
+load_dotenv()
 
 logger = logging.getLogger(__name__)
+
+
+def _suppress_multiprocess_noise() -> None:
+    try:
+        import multiprocessing.util as _util
+        _original_exit = _util._exit_function
+
+        def _patched_exit(*args, **kwargs):
+            try:
+                _original_exit(*args, **kwargs)
+            except Exception:
+                pass
+
+        _util._exit_function = _patched_exit
+    except Exception:
+        pass
+
+    original_hook = sys.unraisablehook
+
+    def _quiet_unraisable(args):
+        if "_recursion_count" in str(args.exc_value) or "ResourceTracker" in str(args.object):
+            return
+        original_hook(args)
+
+    sys.unraisablehook = _quiet_unraisable
 
 
 async def run(container: WorkerContainer) -> None:
@@ -47,6 +75,8 @@ def main() -> None:
         format="%(asctime)s %(levelname)s %(name)s — %(message)s",
         datefmt="%H:%M:%S",
     )
+
+    _suppress_multiprocess_noise()
 
     if not os.environ.get("DB_URL"):
         logger.error("DB_URL is not set. Aborting.")

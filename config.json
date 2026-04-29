@@ -21,6 +21,6 @@
 		"host": "0.0.0.0",
 		"port": 8001,
 		"top_k": 8,
-		"expand_quries": 3
+		"expand_queries": 3
 	}
 }
