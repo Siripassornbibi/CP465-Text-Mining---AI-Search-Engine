@@ -1,0 +1,23 @@
+# Embedding
+sentence-transformers>=3.0.0
+numpy>=1.26.0
+torch>=2.2.0
+ 
+# Postgres
+asyncpg>=0.29.0
+pgvector>=0.3.0
+ 
+# API
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+pydantic>=2.7.0
+ 
+# LangChain
+langchain-core>=0.2.0
+langchain-ollama>=0.1.0
+ 
+# RabbitMQ
+aio-pika>=9.4.0
+
+# Env
+python-dotenv>=1.0.0

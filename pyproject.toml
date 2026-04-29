@@ -1,11 +1,23 @@
 [build-system]
 requires = ["setuptools>=42"]
 build-backend = "setuptools.build_meta"
- 
+
 [project]
-name = "embedding"
+name = "embedder"
 version = "0.1.0"
 requires-python = ">=3.11"
- 
+dependencies = [
+    "embedding",        
+    "numpy>=1.26.0",
+    "asyncpg>=0.29.0",
+]
+
+[project.optional-dependencies]
+rag = [
+    "ragas>=0.1.0",
+    "datasets>=2.18.0",
+    "langchain-ollama>=0.1.0",
+]
+
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["app"]

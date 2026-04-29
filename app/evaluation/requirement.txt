@@ -1,0 +1,11 @@
+# core
+numpy>=1.26.0
+asyncpg>=0.29.0
+
+# Env
+python-dotenv>=1.0.0
+ 
+# RAG eval (optional — only needed for --rag flag)
+ragas>=0.1.0
+datasets>=2.18.0
+langchain-ollama>=0.1.0
