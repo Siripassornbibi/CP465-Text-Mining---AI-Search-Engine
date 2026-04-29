@@ -84,6 +84,620 @@
 			"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/404",
 			"https://http.dev/status",
 			"https://datatracker.ietf.org/doc/rfc9110/"
-		]
+		],
+		"ground_truth": "The HTTP 404 Not Found client error response status code indicates that the server cannot find the requested resource."
+	},
+	"What is machine learning?": {
+		"expected_urls": [
+			"https://www.ibm.com/topics/machine-learning",
+			"https://en.wikipedia.org/wiki/Machine_learning"
+		],
+		"ground_truth": "Machine learning is a subset of artificial intelligence that allows systems to learn and improve from experience without being explicitly programmed."
+	},
+	"How to improve sleep quality?": {
+		"expected_urls": [
+			"https://www.sleepfoundation.org/sleep-hygiene",
+			"https://www.mayoclinic.org/healthy-lifestyle/adult-health/in-depth/sleep/art-20048379"
+		],
+		"ground_truth": "Improving sleep quality involves maintaining a consistent sleep schedule, limiting screen time before bed, keeping the bedroom cool and dark, and avoiding caffeine late in the day."
+	},
+	"What is the speed of light?": {
+		"expected_urls": [
+			"https://en.wikipedia.org/wiki/Speed_of_light",
+			"https://science.nasa.gov/exoplanets/what-is-the-speed-of-light/"
+		],
+		"ground_truth": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 300,000 km/s)."
+	},
+	"How to learn a new language fast?": {
+		"expected_urls": [
+			"https://www.babbel.com/en/magazine/how-to-learn-a-language-fast",
+			"https://www.duolingo.com/learn"
+		],
+		"ground_truth": "Learning a language quickly involves daily practice, immersion, using spaced repetition tools, and conversing with native speakers."
+	},
+	"What are the symptoms of diabetes?": {
+		"expected_urls": [
+			"https://www.diabetes.org/diabetes/type-2/symptoms",
+			"https://www.nhs.uk/conditions/type-2-diabetes/symptoms/"
+		],
+		"ground_truth": "Common diabetes symptoms include frequent urination, excessive thirst, unexplained weight loss, fatigue, and blurred vision."
+	},
+	"What is the difference between RAM and ROM?": {
+		"expected_urls": [
+			"https://www.crucial.com/articles/about-memory/what-is-the-difference-between-ram-and-rom",
+			"https://en.wikipedia.org/wiki/Read-only_memory"
+		],
+		"ground_truth": "RAM (Random Access Memory) is temporary, writable memory used for active processes, while ROM (Read-Only Memory) is permanent, non-volatile storage that retains data without power."
+	},
+	"How to boost immune system naturally?": {
+		"expected_urls": [
+			"https://www.healthline.com/nutrition/how-to-boost-immune-health",
+			"https://www.health.harvard.edu/staying-healthy/how-to-boost-your-immune-system"
+		],
+		"ground_truth": "You can boost your immune system by eating a balanced diet, getting enough sleep, exercising regularly, managing stress, and avoiding smoking and excessive alcohol."
+	},
+	"How to get rid of acne?": {
+		"expected_urls": [
+			"https://www.aad.org/public/diseases/acne/diy/treat-at-home",
+			"https://www.healthline.com/nutrition/13-acne-remedies"
+		],
+		"ground_truth": "Acne can be reduced by keeping the skin clean, using non-comedogenic products, avoiding touching your face, and using treatments containing benzoyl peroxide or salicylic acid."
+	},
+	"What is the human genome?": {
+		"expected_urls": [
+			"https://www.genome.gov/about-genomics/fact-sheets/A-Brief-Guide-to-Genomics",
+			"https://en.wikipedia.org/wiki/Human_genome"
+		],
+		"ground_truth": "The human genome is the complete set of genetic information in a human cell, consisting of about 3 billion DNA base pairs and approximately 20,000 to 25,000 genes."
+	},
+	"How does the internet work?": {
+		"expected_urls": [
+			"https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/How_does_the_Internet_work",
+			"https://www.cloudflare.com/learning/network-layer/how-does-the-internet-work/"
+		],
+		"ground_truth": "The internet works by connecting devices worldwide through a network of routers and servers, exchanging data via standardized protocols like TCP/IP."
+	},
+	"What are probiotics good for?": {
+		"expected_urls": [
+			"https://www.healthline.com/nutrition/11-super-healthy-probiotic-foods",
+			"https://www.mayoclinic.org/prebiotics-probiotics-and-your-health/art-20390058"
+		],
+		"ground_truth": "Probiotics are beneficial bacteria that support gut health, improve digestion, strengthen the immune system, and may help with conditions like IBS and antibiotic-related diarrhea."
+	},
+	"What causes high blood pressure?": {
+		"expected_urls": [
+			"https://www.heart.org/en/health-topics/high-blood-pressure/why-high-blood-pressure-is-a-silent-killer",
+			"https://www.nhs.uk/conditions/high-blood-pressure-hypertension/causes/"
+		],
+		"ground_truth": "High blood pressure can be caused by a poor diet high in salt, lack of exercise, obesity, excessive alcohol consumption, stress, and genetic factors."
+	},
+	"What is DNS?": {
+		"expected_urls": [
+			"https://www.cloudflare.com/learning/dns/what-is-dns/",
+			"https://developer.mozilla.org/en-US/docs/Glossary/DNS"
+		],
+		"ground_truth": "DNS (Domain Name System) is the internet's phonebook — it translates human-readable domain names like example.com into IP addresses that computers use to communicate."
+	},
+	"How to improve memory and concentration?": {
+		"expected_urls": [
+			"https://www.health.harvard.edu/mind-and-mood/12-ways-to-keep-your-brain-young",
+			"https://www.health.harvard.edu/mind-and-mood/9-tips-to-boost-your-memory",
+			"https://www.healthline.com/nutrition/ways-to-improve-memory"
+		],
+		"ground_truth": "Memory and concentration can be improved through regular exercise, quality sleep, mental challenges, a healthy diet rich in omega-3s, and mindfulness practices."
+	},
+	"What is the Big Bang theory?": {
+		"expected_urls": [
+			"https://science.nasa.gov/universe/overview/",
+			"https://en.wikipedia.org/wiki/Big_Bang"
+		],
+		"ground_truth": "The Big Bang theory is the prevailing cosmological model explaining that the universe originated about 13.8 billion years ago from an extremely hot, dense singularity and has been expanding ever since."
+	},
+	"How to cook rice perfectly?": {
+		"expected_urls": [
+			"https://www.bbcgoodfood.com/howto/guide/how-cook-rice"
+		],
+		"ground_truth": "Perfectly cooked rice requires rinsing the grains, using the correct water ratio (typically 1:2), bringing to a boil, then simmering covered on low heat until the water is absorbed."
+	},
+	"What is depression?": {
+		"expected_urls": [
+			"https://www.who.int/news-room/fact-sheets/detail/depression",
+			"https://www.nimh.nih.gov/health/topics/depression"
+		],
+		"ground_truth": "Depression is a common mental health disorder characterized by persistent sadness, loss of interest, fatigue, sleep disturbances, and difficulty concentrating, often requiring professional treatment."
+	},
+	"What is Python programming language?": {
+		"expected_urls": [
+			"https://www.python.org/about/",
+			"https://www.python.org/doc/essays/blurb/",
+			"https://en.wikipedia.org/wiki/Python_(programming_language)"
+		],
+		"ground_truth": "Python is a high-level, general-purpose programming language known for its clear syntax and readability, widely used in data science, web development, automation, and AI."
+	},
+	"How to reduce cholesterol naturally?": {
+		"expected_urls": [
+			"https://www.heart.org/en/health-topics/cholesterol/prevention-and-treatment-of-high-cholesterol-hyperlipidemia",
+			"https://www.healthline.com/nutrition/how-to-lower-cholesterol"
+		],
+		"ground_truth": "Cholesterol can be reduced naturally by eating more fiber, healthy fats, and plant-based foods, exercising regularly, quitting smoking, and limiting saturated and trans fats."
+	},
+	"What is the stock market?": {
+		"expected_urls": [
+			"https://www.investopedia.com/terms/s/stockmarket.asp",
+			"https://en.wikipedia.org/wiki/Stock_market"
+		],
+		"ground_truth": "The stock market is a marketplace where buyers and sellers trade shares of publicly listed companies, allowing businesses to raise capital and investors to build wealth."
+	},
+	"How to treat a sunburn?": {
+		"expected_urls": [
+			"https://www.aad.org/public/everyday-care/sun-protection/sunscreen-patients/sunburn-relief",
+			"https://www.healthline.com/health/sunburn-treatment"
+		],
+		"ground_truth": "Sunburn can be treated by cooling the skin with cold water, applying aloe vera or moisturizer, staying hydrated, taking pain relievers if needed, and avoiding further sun exposure."
+	},
+	"What are the types of cloud computing?": {
+		"expected_urls": [
+			"https://aws.amazon.com/types-of-cloud-computing/",
+			"https://azure.microsoft.com/en-us/resources/cloud-computing-dictionary/what-are-the-types-of-cloud-computing"
+		],
+		"ground_truth": "The main types of cloud computing are IaaS (Infrastructure as a Service), PaaS (Platform as a Service), and SaaS (Software as a Service), deployed as public, private, or hybrid clouds."
+	},
+	"What is the difference between virus and bacteria?": {
+		"expected_urls": [
+			"https://www.healthline.com/health/bacterial-vs-viral-infections",
+			"https://www.cdc.gov/antibiotic-use/index.html"
+		],
+		"ground_truth": "Bacteria are single-celled living organisms that can reproduce independently and may be treated with antibiotics. Viruses are non-living particles that require a host cell to replicate and are not affected by antibiotics."
+	},
+	"How to get better at public speaking?": {
+		"expected_urls": [
+			"https://www.toastmasters.org/resources/public-speaking-tips",
+			"https://hbr.org/topic/subject/public-speaking"
+		],
+		"ground_truth": "Public speaking improves with regular practice, preparation, learning to manage anxiety, making eye contact, speaking slowly and clearly, and seeking feedback."
+	},
+	"What is inflation?": {
+		"expected_urls": [
+			"https://www.investopedia.com/terms/i/inflation.asp",
+			"https://en.wikipedia.org/wiki/Inflation"
+		],
+		"ground_truth": "Inflation is the rate at which the general level of prices for goods and services rises over time, reducing the purchasing power of money."
+	},
+	"How to fix insomnia?": {
+		"expected_urls": [
+			"https://www.sleepfoundation.org/insomnia/treatment",
+			"https://www.mayoclinic.org/diseases-conditions/insomnia/diagnosis-treatment/drc-20355173"
+		],
+		"ground_truth": "Insomnia can be addressed through cognitive behavioral therapy (CBT-I), maintaining a consistent sleep schedule, avoiding screens before bed, limiting caffeine, and creating a relaxing bedtime routine."
+	},
+	"What is the ozone layer?": {
+		"expected_urls": [
+			"https://www.nasa.gov/ozone",
+			"https://www.epa.gov/ozone-layer-protection/basic-ozone-layer-science",
+			"https://en.wikipedia.org/wiki/Ozone_layer"
+		],
+		"ground_truth": "The ozone layer is a region of Earth's stratosphere containing high concentrations of ozone (O₃) that absorbs most of the sun's harmful ultraviolet radiation."
+	},
+	"How to be more productive at work?": {
+		"expected_urls": [
+			"https://hbr.org/topic/subject/productivity",
+			"https://asana.com/resources/tips-to-be-more-productive"
+		],
+		"ground_truth": "Productivity at work can be improved by prioritizing tasks, minimizing distractions, using time management techniques like the Pomodoro method, taking regular breaks, and setting clear daily goals."
+	},
+	"What is HTTPS?": {
+		"expected_urls": [
+			"https://developer.mozilla.org/en-US/docs/Glossary/HTTPS",
+			"https://www.cloudflare.com/learning/ssl/what-is-https/"
+		],
+		"ground_truth": "HTTPS (HyperText Transfer Protocol Secure) is an encrypted version of HTTP that secures data exchanged between a web browser and a server using SSL/TLS protocols."
+	},
+	"What are antioxidants?": {
+		"expected_urls": [
+			"https://www.healthline.com/nutrition/antioxidants-explained",
+			"https://www.hsph.harvard.edu/nutritionsource/antioxidants/"
+		],
+		"ground_truth": "Antioxidants are compounds found in food that neutralize harmful free radicals in the body, helping to prevent cell damage, reduce inflammation, and lower the risk of chronic diseases."
+	},
+	"How does a vaccine work?": {
+		"expected_urls": [
+			"https://www.who.int/news-room/feature-stories/detail/how-do-vaccines-work",
+			"https://www.cdc.gov/vaccines/hcp/conversations/understanding-vacc-work.html"
+		],
+		"ground_truth": "Vaccines work by introducing a harmless form of a pathogen or its components to stimulate the immune system to produce antibodies, creating immunity without causing the actual disease."
+	},
+	"What is a VPN?": {
+		"expected_urls": [
+			"https://www.cloudflare.com/learning/access-management/what-is-a-vpn/",
+			"https://en.wikipedia.org/wiki/Virtual_private_network"
+		],
+		"ground_truth": "A VPN (Virtual Private Network) creates an encrypted tunnel between your device and a remote server, masking your IP address and securing your internet connection from eavesdroppers."
+	},
+	"What causes back pain?": {
+		"expected_urls": [
+			"https://www.mayoclinic.org/diseases-conditions/back-pain/symptoms-causes/syc-20369906",
+			"https://www.nhs.uk/conditions/back-pain/"
+		],
+		"ground_truth": "Back pain is commonly caused by poor posture, muscle strain, herniated discs, sedentary lifestyle, or underlying conditions such as arthritis or osteoporosis."
+	},
+	"What is compound interest?": {
+		"expected_urls": [
+			"https://www.investopedia.com/terms/c/compoundinterest.asp",
+			"https://en.wikipedia.org/wiki/Compound_interest"
+		],
+		"ground_truth": "Compound interest is interest calculated on both the initial principal and the accumulated interest from previous periods, causing wealth to grow exponentially over time."
+	},
+	"How to write a cover letter?": {
+		"expected_urls": [
+			"https://www.indeed.com/career-advice/resumes-cover-letters/how-to-write-a-cover-letter",
+			"https://hbr.org/2022/05/how-to-write-a-cover-letter-that-sounds-like-you"
+		],
+		"ground_truth": "A good cover letter should introduce yourself, highlight relevant skills and experiences, explain why you are interested in the role and company, and end with a confident call to action."
+	},
+	"What is Newton's first law of motion?": {
+		"expected_urls": [
+			"https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion",
+			"https://www.khanacademy.org/science/physics/forces-newtons-laws/newtons-laws-of-motion/a/what-is-newtons-first-law"
+		],
+		"ground_truth": "Newton's first law states that an object at rest stays at rest, and an object in motion stays in motion at constant velocity, unless acted upon by an external force."
+	},
+	"How to prevent tooth decay?": {
+		"expected_urls": [
+			"https://www.ada.org/resources/research/science-and-research-institute/oral-health-topics/tooth-decay",
+			"https://www.nhs.uk/live-well/healthy-teeth-and-gums/how-to-keep-your-teeth-clean/"
+		],
+		"ground_truth": "Tooth decay can be prevented by brushing twice daily with fluoride toothpaste, flossing regularly, reducing sugar intake, drinking fluoridated water, and scheduling regular dental checkups."
+	},
+	"What is the difference between affect and effect?": {
+		"expected_urls": [
+			"https://www.merriam-webster.com/grammar/affect-vs-effect-usage-grammar",
+			"https://www.grammarly.com/blog/affect-vs-effect/"
+		],
+		"ground_truth": "Affect is usually a verb meaning to influence something (e.g., 'The weather affects my mood'), while effect is usually a noun meaning the result (e.g., 'The effect was positive')."
+	},
+	"How does GPS work?": {
+		"expected_urls": [
+			"https://www.gps.gov/systems/gps/",
+			"https://en.wikipedia.org/wiki/Global_Positioning_System"
+		],
+		"ground_truth": "GPS works by receiving signals from a network of satellites orbiting Earth. A device calculates its position by measuring the time it takes for signals to arrive from at least four satellites."
+	},
+	"What is a calorie?": {
+		"expected_urls": [
+			"https://www.healthline.com/nutrition/how-many-calories-per-day",
+			"https://en.wikipedia.org/wiki/Calorie"
+		],
+		"ground_truth": "A calorie is a unit of energy. In nutrition, it refers to the amount of energy food provides to the body. The average adult needs roughly 2,000 to 2,500 calories per day."
+	},
+	"How to invest money for beginners?": {
+		"expected_urls": [
+			"https://www.investopedia.com/articles/basics/06/invest1000.asp",
+			"https://www.nerdwallet.com/article/investing/how-to-invest-money"
+		],
+		"ground_truth": "Beginners should start investing by setting financial goals, building an emergency fund, learning about index funds or ETFs, and using tax-advantaged accounts like a 401(k) or IRA."
+	},
+	"What is the water cycle?": {
+		"expected_urls": [
+			"https://www.usgs.gov/special-topics/water-science-school/science/water-cycle",
+			"https://en.wikipedia.org/wiki/Water_cycle",
+			"https://www.nationalgeographic.org/encyclopedia/water-cycle/"
+		],
+		"ground_truth": "The water cycle describes the continuous movement of water through evaporation, condensation, precipitation, and collection, cycling water between the surface, atmosphere, and underground."
+	},
+	"How to deal with anxiety?": {
+		"expected_urls": [
+			"https://www.nimh.nih.gov/health/topics/anxiety-disorders",
+			"https://www.healthline.com/health/mental-health/how-to-cope-with-anxiety"
+		],
+		"ground_truth": "Anxiety can be managed through deep breathing exercises, regular physical activity, limiting caffeine, practicing mindfulness, and seeking therapy or counseling if symptoms are severe."
+	},
+	"What is open source software?": {
+		"expected_urls": [
+			"https://opensource.org/osd",
+			"https://en.wikipedia.org/wiki/Open-source_software"
+		],
+		"ground_truth": "Open source software is software with publicly available source code that anyone can inspect, modify, and distribute, encouraging collaboration and transparency in development."
+	},
+	"What is photosynthesis?": {
+		"expected_urls": [
+			"https://www.nationalgeographic.org/encyclopedia/photosynthesis/",
+			"https://en.wikipedia.org/wiki/Photosynthesis"
+		],
+		"ground_truth": "Photosynthesis is the process by which green plants convert sunlight, water, and carbon dioxide into glucose and oxygen."
+	},
+	"How does the immune system work?": {
+		"expected_urls": [
+			"https://www.niaid.nih.gov/research/immune-system-overview",
+			"https://www.betterhealth.vic.gov.au/health/conditionsandtreatments/immune-system"
+		],
+		"ground_truth": "The immune system is a complex network of cells, tissues, and organs that work together to defend the body against harmful pathogens like bacteria, viruses, and parasites."
+	},
+	"What is blockchain technology?": {
+		"expected_urls": [
+			"https://www.ibm.com/topics/blockchain",
+			"https://en.wikipedia.org/wiki/Blockchain"
+		],
+		"ground_truth": "Blockchain is a decentralized, distributed digital ledger that records transactions across multiple computers in a way that makes the records difficult to alter retroactively."
+	},
+	"How to learn a new language quickly?": {
+		"expected_urls": [
+			"https://www.fluentu.com/blog/how-to-learn-a-language-fast/",
+			"https://www.babbel.com/en/magazine/how-to-learn-a-language-fast"
+		],
+		"ground_truth": "Learning a new language quickly involves daily practice, immersion, using flashcards, speaking with native speakers, and consuming media in the target language."
+	},
+	"What causes earthquakes?": {
+		"expected_urls": [
+			"https://www.usgs.gov/faqs/what-causes-earthquakes",
+			"https://www.nationalgeographic.com/environment/article/earthquakes"
+		],
+		"ground_truth": "Earthquakes are caused by the sudden release of energy in the Earth's crust due to tectonic plate movements along fault lines."
+	},
+	"How does electricity work?": {
+		"expected_urls": [
+			"https://www.energy.gov/science/doe-explainselectricity",
+			"https://en.wikipedia.org/wiki/Electricity"
+		],
+		"ground_truth": "Electricity is the flow of electrons through a conductor, driven by a difference in electric potential, and is used to power devices and systems."
+	},
+	"What is quantum computing?": {
+		"expected_urls": [
+			"https://www.ibm.com/topics/quantum-computing",
+			"https://en.wikipedia.org/wiki/Quantum_computing"
+		],
+		"ground_truth": "Quantum computing uses quantum bits (qubits) that can exist in multiple states simultaneously, enabling computations far beyond the capability of classical computers."
+	},
+	"How to boost your metabolism?": {
+		"expected_urls": [
+			"https://www.healthline.com/nutrition/10-ways-to-boost-metabolism",
+			"https://www.mayoclinic.org/healthy-lifestyle/weight-loss/in-depth/metabolism/art-20046508"
+		],
+		"ground_truth": "Boosting metabolism involves eating enough protein, staying hydrated, exercising regularly, getting adequate sleep, and avoiding crash diets."
+	},
+	"What is the theory of relativity?": {
+		"expected_urls": [
+			"https://www.space.com/17661-theory-general-relativity.html",
+			"https://en.wikipedia.org/wiki/Theory_of_relativity"
+		],
+		"ground_truth": "Einstein's theory of relativity describes how space and time are linked and how gravity affects the fabric of spacetime, encompassing both special and general relativity."
+	},
+	"How to start a small business?": {
+		"expected_urls": [
+			"https://www.sba.gov/business-guide/10-steps-start-your-business",
+			"https://www.nerdwallet.com/article/small-business/how-to-start-a-business"
+		],
+		"ground_truth": "Starting a small business involves researching the market, creating a business plan, securing funding, registering the business, and building a customer base."
+	},
+	"What is DNA?": {
+		"expected_urls": [
+			"https://www.genome.gov/genetics-glossary/DNA",
+			"https://en.wikipedia.org/wiki/DNA"
+		],
+		"ground_truth": "DNA (deoxyribonucleic acid) is a molecule that carries the genetic instructions for the development, functioning, growth, and reproduction of all living organisms."
+	},
+	"What is the greenhouse effect?": {
+		"expected_urls": [
+			"https://climate.nasa.gov/faq/19/what-is-the-greenhouse-effect/",
+			"https://en.wikipedia.org/wiki/Greenhouse_effect"
+		],
+		"ground_truth": "The greenhouse effect is a natural process where certain gases in Earth's atmosphere trap heat from the sun, warming the planet's surface to a livable temperature."
+	},
+	"How does WiFi work?": {
+		"expected_urls": [
+			"https://www.intel.com/content/www/us/en/tech-tips-and-tricks/what-is-wifi.html",
+			"https://en.wikipedia.org/wiki/Wi-Fi"
+		],
+		"ground_truth": "WiFi uses radio waves to transmit data wirelessly between devices and a router, allowing internet access without physical cable connections."
+	},
+	"What are vitamins and why do we need them?": {
+		"expected_urls": [
+			"https://www.healthline.com/nutrition/vitamins-and-supplements",
+			"https://www.nhs.uk/conditions/vitamins-and-minerals/"
+		],
+		"ground_truth": "Vitamins are organic compounds essential for normal body functions, growth, and health that must be obtained through diet or supplements since the body cannot produce most of them."
+	},
+	"How to meditate for beginners?": {
+		"expected_urls": [
+			"https://www.mindful.org/meditation/mindfulness-getting-started/",
+			"https://www.mindful.org/how-to-meditate/",
+			"https://www.headspace.com/meditation/meditation-for-beginners"
+		],
+		"ground_truth": "Beginners should start meditation by finding a quiet space, sitting comfortably, focusing on breath, and gently returning attention when the mind wanders, starting with 5-10 minutes daily."
+	},
+	"What is inflation in economics?": {
+		"expected_urls": [
+			"https://www.investopedia.com/terms/i/inflation.asp",
+			"https://www.imf.org/en/Publications/fandd/issues/Series/Back-to-Basics/Inflation"
+		],
+		"ground_truth": "Inflation is the rate at which the general level of prices for goods and services rises over time, reducing purchasing power of currency."
+	},
+	"How does a car engine work?": {
+		"expected_urls": [
+			"https://www.howacarworks.com/basics/how-a-car-engine-works",
+			"https://en.wikipedia.org/wiki/Internal_combustion_engine"
+		],
+		"ground_truth": "A car engine works through internal combustion, where fuel and air are ignited in cylinders to create controlled explosions that push pistons, converting chemical energy into mechanical motion."
+	},
+	"What is cybersecurity?": {
+		"expected_urls": [
+			"https://www.cisco.com/site/us/en/learn/topics/security/what-is-cybersecurity.html",
+			"https://www.ibm.com/topics/cybersecurity"
+		],
+		"ground_truth": "Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks that aim to access, change, or destroy sensitive information."
+	},
+	"What is the solar system?": {
+		"expected_urls": [
+			"https://solarsystem.nasa.gov/solar-system/our-solar-system/overview/",
+			"https://en.wikipedia.org/wiki/Solar_System"
+		],
+		"ground_truth": "The solar system consists of the Sun, eight planets, their moons, asteroids, comets, and other celestial bodies bound by gravitational attraction."
+	},
+	"How to lose weight safely?": {
+		"expected_urls": [
+			"https://www.cdc.gov/healthyweight/losing_weight/index.html",
+			"https://www.mayoclinic.org/healthy-lifestyle/weight-loss/in-depth/weight-loss/art-20047752"
+		],
+		"ground_truth": "Safe weight loss involves a balanced diet with a moderate calorie deficit, regular physical activity, adequate sleep, and gradual progress of 1-2 pounds per week."
+	},
+	"How does the stock market work?": {
+		"expected_urls": [
+			"https://www.investopedia.com/articles/investing/082614/how-stock-market-works.asp",
+			"https://www.nerdwallet.com/article/investing/how-does-the-stock-market-work"
+		],
+		"ground_truth": "The stock market is a marketplace where buyers and sellers trade shares of publicly listed companies, with prices determined by supply and demand."
+	},
+	"What is depression and how is it treated?": {
+		"expected_urls": [
+			"https://www.nimh.nih.gov/health/topics/depression",
+			"https://www.mayoclinic.org/diseases-conditions/depression/symptoms-causes/syc-20356007"
+		],
+		"ground_truth": "Depression is a mood disorder causing persistent feelings of sadness and loss of interest, treated through therapy, medication, lifestyle changes, or a combination of approaches."
+	},
+	"How to plant a garden?": {
+		"expected_urls": [
+			"https://www.almanac.com/vegetable-gardening-for-beginners",
+			"https://www.bhg.com/gardening/yard/garden-care/how-to-start-a-garden/"
+		],
+		"ground_truth": "Starting a garden involves choosing a location with adequate sunlight, preparing the soil, selecting appropriate plants, watering regularly, and maintaining with weeding and fertilizing."
+	},
+	"What is the Internet of Things (IoT)?": {
+		"expected_urls": [
+			"https://www.oracle.com/internet-of-things/what-is-iot/",
+			"https://www.ibm.com/topics/internet-of-things"
+		],
+		"ground_truth": "The Internet of Things refers to the network of physical devices embedded with sensors and software that connect and exchange data over the internet."
+	},
+	"How to do CPR?": {
+		"expected_urls": [
+			"https://www.redcross.org/take-a-class/cpr/performing-cpr/cpr-steps",
+			"https://www.mayoclinic.org/first-aid/first-aid-cpr/basics/art-20056600"
+		],
+		"ground_truth": "CPR involves calling 911, placing the person on a firm surface, performing chest compressions at 100-120 per minute, and giving rescue breaths in a 30:2 ratio."
+	},
+	"What is cryptocurrency?": {
+		"expected_urls": [
+			"https://www.investopedia.com/terms/c/cryptocurrency.asp",
+			"https://www.kaspersky.com/resource-center/definitions/what-is-cryptocurrency"
+		],
+		"ground_truth": "Cryptocurrency is a digital or virtual currency secured by cryptography that operates on decentralized networks using blockchain technology."
+	},
+	"How to reduce carbon footprint?": {
+		"expected_urls": [
+			"https://www.nature.org/en-us/get-involved/how-to-help/carbon-footprint-calculator/",
+			"https://www.un.org/en/actnow/ten-actions"
+		],
+		"ground_truth": "Reducing carbon footprint involves using public transport, eating less meat, reducing energy consumption, recycling, and supporting renewable energy sources."
+	},
+	"What is anxiety disorder?": {
+		"expected_urls": [
+			"https://www.nimh.nih.gov/health/topics/anxiety-disorders",
+			"https://www.mayoclinic.org/diseases-conditions/anxiety/symptoms-causes/syc-20350961"
+		],
+		"ground_truth": "Anxiety disorder is a mental health condition characterized by excessive worry, fear, and nervousness that interferes with daily activities, treatable through therapy and medication."
+	},
+	"What is cloud computing?": {
+		"expected_urls": [
+			"https://aws.amazon.com/what-is-cloud-computing/",
+			"https://azure.microsoft.com/en-us/overview/what-is-cloud-computing/"
+		],
+		"ground_truth": "Cloud computing is the delivery of computing services like storage, processing, and software over the internet, allowing on-demand access without owning physical infrastructure."
+	},
+	"How to prevent heart disease?": {
+		"expected_urls": [
+			"https://www.heart.org/en/healthy-living/healthy-lifestyle",
+			"https://www.mayoclinic.org/diseases-conditions/heart-disease/in-depth/heart-disease-prevention/art-20046502"
+		],
+		"ground_truth": "Preventing heart disease involves regular exercise, a heart-healthy diet, maintaining healthy weight, not smoking, managing stress, and controlling blood pressure and cholesterol."
+	},
+	"What is the difference between HTTP and HTTPS?": {
+		"expected_urls": [
+			"https://www.cloudflare.com/learning/ssl/why-is-http-not-secure/",
+			"https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview"
+		],
+		"ground_truth": "HTTPS is the secure version of HTTP that encrypts data transferred between browser and server using SSL/TLS certificates, protecting against eavesdropping and tampering."
+	},
+	"How to write an essay?": {
+		"expected_urls": [
+			"https://www.grammarly.com/blog/essay-writing/",
+			"https://owl.purdue.edu/owl/general_writing/the_writing_process/index.html"
+		],
+		"ground_truth": "Writing an essay involves choosing a topic, creating a thesis statement, outlining main points, writing an introduction, body paragraphs with evidence, and a conclusion."
+	},
+	"What is renewable energy?": {
+		"expected_urls": [
+			"https://www.nrdc.org/stories/renewable-energy-clean-facts",
+			"https://www.un.org/en/climatechange/what-is-renewable-energy"
+		],
+		"ground_truth": "Renewable energy comes from naturally replenishing sources like sunlight, wind, rain, tides, and geothermal heat that are sustainable and produce minimal greenhouse emissions."
+	},
+	"How to treat a burn?": {
+		"expected_urls": [
+			"https://www.mayoclinic.org/first-aid/first-aid-burns/basics/art-20056649",
+			"https://www.nhs.uk/conditions/burns-and-scalds/"
+		],
+		"ground_truth": "Treating minor burns involves cooling the burn under cool running water for at least 10 minutes, covering with a sterile bandage, and taking pain relievers if needed."
+	},
+	"What is machine learning vs deep learning?": {
+		"expected_urls": [
+			"https://www.ibm.com/topics/deep-learning",
+			"https://www.zendesk.com/blog/machine-learning-and-deep-learning/"
+		],
+		"ground_truth": "Machine learning uses algorithms to learn from data, while deep learning is a subset using neural networks with multiple layers to process complex patterns and unstructured data."
+	},
+	"How to build credit score?": {
+		"expected_urls": [
+			"https://www.experian.com/blogs/ask-experian/credit-education/improving-credit/how-to-build-credit/",
+			"https://www.nerdwallet.com/article/finance/how-to-build-credit"
+		],
+		"ground_truth": "Building credit involves opening a credit account, making payments on time, keeping credit utilization low, avoiding unnecessary hard inquiries, and maintaining accounts over time."
+	},
+	"What is diabetes?": {
+		"expected_urls": [
+			"https://www.cdc.gov/diabetes/basics/diabetes.html",
+			"https://www.mayoclinic.org/diseases-conditions/diabetes/symptoms-causes/syc-20371444"
+		],
+		"ground_truth": "Diabetes is a chronic condition where the body cannot properly process glucose due to insufficient insulin production or insulin resistance, leading to high blood sugar levels."
+	},
+	"How does 3D printing work?": {
+		"expected_urls": [
+			"https://www.hubs.com/knowledge-base/what-is-3d-printing/",
+			"https://en.wikipedia.org/wiki/3D_printing"
+		],
+		"ground_truth": "3D printing creates three-dimensional objects by depositing material layer by layer based on a digital model, using techniques like FDM, SLA, or SLS."
+	},
+	"What is emotional intelligence?": {
+		"expected_urls": [
+			"https://www.verywellmind.com/what-is-emotional-intelligence-2795423",
+			"https://www.helpguide.org/articles/mental-health/emotional-intelligence-eq.htm"
+		],
+		"ground_truth": "Emotional intelligence is the ability to recognize, understand, manage, and influence your own emotions and those of others, crucial for relationships and leadership."
+	},
+	"How to prepare for a job interview?": {
+		"expected_urls": [
+			"https://www.indeed.com/career-advice/interviewing/how-to-prepare-for-an-interview",
+			"https://www.themuse.com/advice/the-ultimate-interview-guide"
+		],
+		"ground_truth": "Preparing for a job interview involves researching the company, practicing common questions, preparing examples of achievements, dressing appropriately, and preparing questions to ask."
+	},
+	"How to manage time effectively?": {
+		"expected_urls": [
+			"https://www.mindtools.com/pages/main/newMN_HTE.htm",
+			"https://www.indeed.com/career-advice/career-development/time-management-skills"
+		],
+		"ground_truth": "Effective time management involves prioritizing tasks, setting goals, using calendars and to-do lists, minimizing distractions, delegating when possible, and taking regular breaks."
+	},
+	"What is 5G technology?": {
+		"expected_urls": [
+			"https://www.qualcomm.com/5g/what-is-5g",
+			"https://en.wikipedia.org/wiki/5G"
+		],
+		"ground_truth": "5G is the fifth generation of mobile network technology offering faster speeds, lower latency, and greater capacity than 4G, enabling advanced applications like IoT and autonomous vehicles."
+	},
+	"How to compost at home?": {
+		"expected_urls": [
+			"https://www.epa.gov/recycle/composting-home",
+			"https://www.gardenersworld.com/how-to/maintain-the-garden/how-to-make-compost/"
+		],
+		"ground_truth": "Home composting involves collecting green and brown organic waste in a bin, maintaining moisture and aeration, turning regularly, and allowing decomposition over several weeks to months."
 	}
 }
