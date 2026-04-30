@@ -41,8 +41,8 @@ class EvalContainer:
         self.rag_evaluator = RAGEvaluator(
             search_use_case=self._api.search_use_case,
             llm_chain=self._api.llm_chain,
-            ollama_base_url=self.config.llm.ollama_url,
-            llm_model=self.config.llm.model,
+            ollama_base_url=self.config.evaluation_llm.ollama_url,
+            evaluation_llm_model=self.config.evaluation_llm.model,
             embed_model=self.config.embedder.model,
             executor=self._api._executor,
             top_k=self._top_k,

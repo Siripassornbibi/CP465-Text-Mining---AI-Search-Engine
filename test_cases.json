@@ -14,7 +14,8 @@
 	},
 	"What is the capital of France?": {
 		"expected_urls": [
-			"https://en.wikipedia.org/wiki/Paris"
+			"https://en.wikipedia.org/wiki/Paris",
+			"https://commons.wikimedia.org/wiki/Paris"
 		],
 		"ground_truth": "The capital of France is Paris."
 	},

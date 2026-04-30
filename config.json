@@ -11,11 +11,15 @@
 		"backend": "ollama",
 		"model": "bge-m3",
 		"ollama_url": "http://localhost:11434",
-		"timeout": 60
+		"timeout": 120
 	},
 	"llm": {
-		"model": "llama3.2",
-		"ollama_url": "http://192.168.1.97:11434"
+		"model": "llama3:8b",
+		"ollama_url": "http://localhost:11434"
+	},
+	"evaluation_llm": {
+		"model": "qwen2",
+		"ollama_url": "http://localhost:11434"
 	},
 	"api": {
 		"host": "0.0.0.0",
