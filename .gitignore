@@ -24,3 +24,6 @@ pip-wheel-metadata/
 #reports 
 retrival_report.txt
 rag_report.txt
+
+#config
+config.json
