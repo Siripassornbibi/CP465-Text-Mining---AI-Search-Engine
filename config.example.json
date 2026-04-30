@@ -1,6 +1,5 @@
 {
 	"rabbitmq": {
-		"url": "amqp://guest:guest@localhost:5672/",
 		"exchange": "prawler.embedding",
 		"exchange_type": "topic",
 		"queue": "prawler.embedding",

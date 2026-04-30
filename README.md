@@ -88,6 +88,7 @@ pip install -r requirements.txt
 
 ```env
 DB_URL=postgresql://user:pass@localhost/googai
+AMQP_URL=amqp://guest:guest@localhost:5672/
 CONFIG_PATH=config.json
 ```
 
@@ -112,7 +113,6 @@ All runtime settings live in `config.json`. The database URL is read from the `D
 ```json
 {
     "rabbitmq": {
-        "url": "amqp://guest:guest@192.168.1.50:5672/",
         "exchange": "prawler",
         "exchange_type": "topic",
         "queue": "prawler.embedding",

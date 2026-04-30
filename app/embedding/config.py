@@ -12,12 +12,12 @@ from typing import Literal, Optional
 
 @dataclass
 class RabbitMQConfig:
-	url: str
 	exchange: str
 	exchange_type: str
 	queue: str
 	routing_key: str
 	prefetch_count: int = 4
+	url: str = "amqp://guest:guest@localhost:5672/"
 
 
 @dataclass
@@ -67,15 +67,22 @@ class AppConfig:
 		if not database_url:
 			raise RuntimeError("Environment variable DB_URL is not set.")
 
+		amqp_url = os.environ.get("AMQP_URL")
+		if not amqp_url:
+			amqp_url = "amqp://guest:guest@localhost:5672/"
+
 		embedder_raw = raw["embedder"]
 
 		# validate ollama backend has a url
 		if embedder_raw.get("backend") == "ollama" and not embedder_raw.get("ollama_url"):
 			raise RuntimeError("embedder.ollama_url is required when backend is 'ollama'.")
+		
+		rabbitmq = RabbitMQConfig(**raw["rabbitmq"])
+		rabbitmq.url = amqp_url
 
 		return cls(
 			database_url=database_url,
-			rabbitmq=RabbitMQConfig(**raw["rabbitmq"]),
+			rabbitmq=rabbitmq,
 			embedder=EmbedderConfig(**embedder_raw),
 			llm=LLMConfig(**raw["llm"]),
 			evaluation_llm=LLMConfig(**raw["evaluation_llm"]),
