@@ -61,7 +61,8 @@ class SearchUseCase:
         # retrieve top_k results per query concurrently
         retrievals = await asyncio.gather(*[
             self._search_repo.similarity_search(vec, k)
-            for vec in vectors
+            for vec, ok in vectors
+            if ok
         ])
 
         # merge — keep best score per unique (url, section_heading) pair

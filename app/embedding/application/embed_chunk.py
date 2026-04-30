@@ -43,7 +43,7 @@ class EmbedChunkUseCase:
 
         for chunk in chunks:
             text = chunk.prepared_text()
-            embedding = await loop.run_in_executor(
+            embedding, _ = await loop.run_in_executor(
                 self._executor,
                 lambda t=text: self._embedder.embed(t),
             )
